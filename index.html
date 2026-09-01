@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAUSAL-BD — Overview</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">CAUSAL-BD</div>
+    <nav class="tabs">
+      <button class="tab active" data-tab="overview">Overview</button>
+      <button class="tab" data-tab="model">Causal Model</button>
+      <button class="tab" data-tab="insights">Causal Insights</button>
+      <button class="tab" data-tab="interventions">Interventions</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section id="view-overview" class="page-view">
+
+  <div class="top-grid">
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">Patient Information</h2>
+        <div class="head-actions">
+          <button class="change-patient">Change patient</button>
+          <div class="info-wrap">
+            <button class="info-btn" aria-label="Patient information help">i</button>
+            <div class="tooltip">Basic information needed to understand the patient's current monitoring and care context.</div>
+          </div>
+        </div>
+      </div>
+      <div class="patient-body">
+        <div class="patient-name">Jane Doe</div>
+        <div class="patient-meta">32 years old · Woman</div>
+        <div class="info-list">
+          <div class="info-label">Monitoring period</div><div class="info-value">May 1 – Jul 31, 2026</div>
+          <div class="info-label">Observation days</div><div class="info-value">92 days</div>
+          <div class="info-label">Last in-person visit</div><div class="info-value">Apr 28, 2026</div>
+          <div class="info-label">Intervention status</div>
+          <div class="info-value"><span class="status-off"><span class="status-dot"></span>Not active</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">Drinking Summary</h2>
+        <div class="info-wrap">
+          <button class="info-btn" aria-label="Drinking summary help">i</button>
+          <div class="tooltip">Summary of drinking and binge-drinking events recorded during the monitoring period.</div>
+        </div>
+      </div>
+      <div class="summary-body">
+        <div class="metric metric-quant">
+          <div class="metric-label">Drinking days</div>
+          <div class="metric-value">14</div>
+          <div class="metric-note">of 92 days</div>
+        </div>
+        <div class="metric metric-quant">
+          <div class="metric-label">Binge-drinking events</div>
+          <div class="metric-value">6</div>
+          <div class="metric-note">43% of drinking days</div>
+        </div>
+        <div class="metric metric-quant">
+          <div class="metric-label">Average drinks</div>
+          <div class="metric-value">3.8</div>
+          <div class="metric-note">per drinking event</div>
+        </div>
+
+        <div class="metric metric-context">
+          <div class="metric-label">Typical start time</div>
+          <div class="metric-context-value">7–9 PM</div>
+          <div class="metric-note">Most drinking events</div>
+        </div>
+        <div class="metric metric-context">
+          <div class="metric-label">Most common location</div>
+          <div class="metric-context-value">Bar / restaurant</div>
+          <div class="metric-note">8 of 14 drinking events</div>
+        </div>
+        <div class="metric metric-context">
+          <div class="metric-label">Usually drinking with</div>
+          <div class="metric-context-value">Friends</div>
+          <div class="metric-note">9 of 14 drinking events</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="panel history-panel">
+    <div class="panel-head">
+      <h2 class="panel-title">Drinking History</h2>
+      <div class="info-wrap">
+        <button class="info-btn" aria-label="Drinking history help">i</button>
+        <div class="tooltip">Calendar view of recent no-drinking, drinking, and binge-drinking records. Select a date to inspect the recorded context.</div>
+      </div>
+    </div>
+
+    <div class="history-body">
+      <div class="history-layout">
+        <div class="calendar-side">
+          <div class="history-topline">
+            <div class="month-nav">
+              <button class="month-nav-btn" id="prev-month" aria-label="Previous month">‹</button>
+              <div class="month-title" id="month-title">July 2026</div>
+              <button class="month-nav-btn" id="next-month" aria-label="Next month">›</button>
+            </div>
+            <div class="legend">
+              <button class="legend-btn" data-filter="nodrink"><span class="legend-swatch nodrink"></span>No drinking</button>
+              <button class="legend-btn" data-filter="drink"><span class="legend-swatch drink"></span>Drinking</button>
+              <button class="legend-btn" data-filter="binge"><span class="legend-swatch binge"></span>Binge drinking</button>
+            </div>
+          </div>
+
+          <div class="calendar">
+            <div class="weekdays">
+              <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+            </div>
+            <div class="days" id="days"></div>
+          </div>
+        </div>
+
+        <div class="selected-side">
+          <div class="selected-title-row">
+            <div>
+              <div class="detail-label binge" id="detail-type">Binge drinking</div>
+              <h3 class="detail-title" id="detail-title">Jul 24, 2026 (Fri)</h3>
+            </div>
+            
+          </div>
+
+          <div class="detail-grid">
+            <div class="detail-item">
+              <div class="label">Drinks</div>
+              <div class="value" id="detail-drinks">7 drinks</div>
+            </div>
+            <div class="detail-item">
+              <div class="label">Started drinking</div>
+              <div class="value" id="detail-start">6:45 PM</div>
+            </div>
+            <div class="detail-item">
+              <div class="label">Location</div>
+              <div class="value" id="detail-location">Bar</div>
+            </div>
+            <div class="detail-item">
+              <div class="label">Drinking with</div>
+              <div class="value" id="detail-social">Friends</div>
+            </div>
+            <div class="detail-item wide">
+              <div class="label">Reported consequence</div>
+              <div class="value" id="detail-consequence">Hangover; memory impairment</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </section>
+
+  <section id="view-insights" class="page-view" style="display:none;">
+    <div class="insights-shell insights-shell-top">
+      <button class="findings-drawer-tab" id="open-findings-drawer" aria-expanded="false">
+        Causal Findings
+      </button>
+
+      <aside class="findings-drawer" id="findings-drawer" aria-hidden="true">
+        <div class="findings-drawer-head">
+          <div class="findings-drawer-title">Causal Findings</div>
+          <div class="info-wrap">
+            <button class="info-btn" aria-label="Causal findings help">i</button>
+            <div class="tooltip">Findings are grouped by whether each construct increases, decreases, or shows no clear causal effect on binge drinking.</div>
+          </div>
+          <button class="findings-drawer-close" id="close-findings-drawer" aria-label="Close causal findings panel">×</button>
+        </div>
+
+        <div class="findings-drawer-scroll">
+        <div class="findings-row">
+          <div class="finding-group horizontal">
+            <div class="finding-group-label positive">Increases binge drinking</div>
+            <div class="finding-items-horizontal">
+              <button class="finding-item active" data-finding="social">
+                <div>
+                  <div class="finding-name">Social Connection</div>
+                  <div class="finding-effect" id="finding-effect-social">+6 pp</div>
+                </div>
+              </button>
+              <button class="finding-item" data-finding="negative">
+                <div>
+                  <div class="finding-name">Negative Affect</div>
+                  <div class="finding-effect" id="finding-effect-negative">+4 pp</div>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <div class="finding-group horizontal" id="activity-finding-group" style="display:none;">
+            <div class="finding-group-label negative">Decreases binge drinking</div>
+            <div class="finding-items-horizontal">
+              <button class="finding-item" data-finding="activity">
+                <div>
+                  <div class="finding-name">Physical Activity</div>
+                  <div class="finding-effect" id="finding-effect-activity">−3 pp</div>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <div class="finding-group horizontal">
+            <div class="finding-group-label neutral">No clear causal effect</div>
+            <div class="finding-items-horizontal">
+              <button class="finding-item" data-finding="motivation">
+                <div>
+                  <div class="finding-name">Drinking Motivation</div>
+                  <div class="finding-effect">No clear effect</div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+        </div>
+      </aside>
+
+      <div class="insights-workspace">
+        <section class="panel insight-hero compact-hero">
+          <div class="insight-hero-top">
+            <h1 class="insight-title" id="insight-title">Social Connection → Binge Drinking</h1>
+          </div>
+
+          <div class="effect-copy-row">
+            <div class="effect-main" id="effect-main">Higher Social Connection was estimated to increase the probability of binge drinking.</div>
+          </div>
+
+          <div class="effect-explainer" id="effect-explainer">
+            When the Social Connection score increases by 1 point on the 0–5 scale, the estimated probability of binge drinking increases by about 6 percentage points.
+          </div>
+
+          <div class="insight-effect-details">
+            <div class="insight-effect-detail">
+              <span>Estimated effect</span>
+              <strong id="insight-effect-estimate">+6 percentage points per 1-point increase</strong>
+            </div>
+            <div class="insight-effect-detail">
+              <span>95% CI</span>
+              <strong id="insight-effect-ci">+2.7 to +8.8 percentage points</strong>
+            </div>
+            <div class="insight-effect-detail">
+              <span>Adjusted for</span>
+              <strong id="insight-effect-adjusted">Negative Affect, Drinking Motivation</strong>
+            </div>
+          </div>
+        </section>
+
+        <div class="relationship-components-row">
+          <section class="panel relationship-panel">
+            <div class="panel-head">
+              <h2 class="panel-title" id="relationship-panel-title">Binge Drinking Across Social Connection Scores</h2>
+              <div class="info-wrap">
+                <button class="info-btn" aria-label="Relationship pattern help">i</button>
+                <div class="tooltip">The selected construct score is continuous from 0–5. For interpretation, observations are grouped into five score ranges. Select a bar to inspect the components in that range.</div>
+              </div>
+            </div>
+<div id="score-observed-subtitle" class="score-observed-subtitle">Observed binge-drinking frequency across Social Connection scores</div>
+
+            <div class="relationship-chart-wrap compact-chart corrected-chart">
+              <div class="chart-layout">
+                <div class="y-axis-title-vertical">Binge-drinking probability (%)</div>
+
+                <div class="y-axis-ticks">
+                  <span>40</span>
+                  <span>30</span>
+                  <span>20</span>
+                  <span>10</span>
+                  <span>0</span>
+                </div>
+
+                <div class="plot-column">
+                  <div class="value-label-row" aria-hidden="true">
+                    <span>6%</span>
+                    <span>9%</span>
+                    <span>14%</span>
+                    <span>28%</span>
+                    <span>24%</span>
+                  </div>
+
+                  <div class="plot-area">
+                    <div class="score-rate-chart" id="score-rate-chart">
+                      <button class="score-bin" data-bin="0-1">
+                        <div class="score-bin-bar-wrap"><div class="score-bin-bar" style="height:15%"></div></div>
+                        <div class="score-bin-level">1</div>
+                      </button>
+                      <button class="score-bin" data-bin="1-2">
+                        <div class="score-bin-bar-wrap"><div class="score-bin-bar" style="height:22.5%"></div></div>
+                        <div class="score-bin-level">2</div>
+                      </button>
+                      <button class="score-bin" data-bin="2-3">
+                        <div class="score-bin-bar-wrap"><div class="score-bin-bar" style="height:35%"></div></div>
+                        <div class="score-bin-level">3</div>
+                      </button>
+                      <button class="score-bin" data-bin="3-4">
+                        <div class="score-bin-bar-wrap"><div class="score-bin-bar" style="height:70%"></div></div>
+                        <div class="score-bin-level">4</div>
+                      </button>
+                      <button class="score-bin active" data-bin="4-5">
+                        <div class="score-bin-bar-wrap"><div class="score-bin-bar" style="height:60%"></div></div>
+                        <div class="score-bin-level">5</div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="x-axis-title">Social Connection score</div>
+            </div>
+          </section>
+
+          <section class="panel pattern-panel compact-pattern">
+            <div class="panel-head">
+              <div>
+                <h2 class="panel-title">Component Patterns</h2>
+                <div class="selected-range-label" id="selected-range-label">Social Connection score 4–5 (n = 9)</div>
+              </div>
+              <div class="info-wrap">
+                <button class="info-btn" aria-label="Component patterns help">i</button>
+                <div class="tooltip">These values summarize the components observed within the selected construct score range.</div>
+              </div>
+            </div>
+
+            <div class="pattern-body">
+              <div class="component-compare-list single-bin" id="component-list">
+                <div class="component-block">
+                  <div class="component-title">Messaging activity</div>
+                  <div class="single-component-row"><div class="hbar"><i style="width:92%"></i></div><b>52 min</b></div>
+                </div>
+                <div class="component-block">
+                  <div class="component-title">Call duration</div>
+                  <div class="single-component-row"><div class="hbar"><i style="width:78%"></i></div><b>24 min</b></div>
+                </div>
+                <div class="component-block">
+                  <div class="component-title">Social media usage duration</div>
+                  <div class="single-component-row"><div class="hbar"><i style="width:66%"></i></div><b>37 min</b></div>
+                </div>
+                <div class="component-block">
+                  <div class="component-title">Perceived social connection</div>
+                  <div class="single-component-row"><div class="hbar"><i style="width:88%"></i></div><b>4.4 / 5</b></div>
+                </div>
+                <div class="component-block">
+                  <div class="component-title">In-person social connection</div>
+                  <div class="single-component-row"><div class="hbar"><i style="width:54%"></i></div><b>2.7 / 5</b></div>
+                </div>
+              </div>
+
+              <div class="example-head">Relevant binge-drinking days</div>
+              <div class="example-days compact-days" id="relevant-days">
+                <div class="example-card">
+                  <span class="example-type binge">Binge drinking</span>
+                  <strong>Jul 24</strong>
+                  <span>Social Connection 4.7 / 5</span>
+                  <small>7 drinks · Bar · Friends</small>
+                </div>
+                <div class="example-card">
+                  <span class="example-type binge">Binge drinking</span>
+                  <strong>Jul 2</strong>
+                  <span>Social Connection 4.4 / 5</span>
+                  <small>5 drinks · Friend's home · Friends</small>
+                </div>
+                <div class="example-card">
+                  <span class="example-type binge">Binge drinking</span>
+                  <strong>Jun 14</strong>
+                  <span>Social Connection 4.2 / 5</span>
+                  <small>6 drinks · Bar · Friends</small>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="lower-insights-row">
+          <section class="panel variation-panel revised-variation">
+            <div class="panel-head">
+              <h2 class="panel-title">Causal Effect Comparisons</h2>
+              <div class="info-wrap">
+                <button class="info-btn" aria-label="Variation help">i</button>
+                <div class="tooltip">See how the selected construct's estimated causal effect changes over time and how Jane's effect compares with other patient groups.</div>
+              </div>
+            </div>
+
+            <div class="variation-body variation-two-col">
+              <div class="time-variation-block">
+                <div class="subsection-title">Over time</div>
+
+                <div class="compact-time-chart corrected-time-chart tall-time-chart">
+                  <div class="time-y-axis-title">Estimated causal effect (pp)</div>
+
+                  <div class="time-y-axis">
+                    <span>10</span>
+                    <span>5</span>
+                    <span>0</span>
+                  </div>
+
+                  <div class="time-plot">
+                    <div class="time-baseline"></div>
+                    <div class="time-yline"></div>
+
+                    <svg viewBox="0 0 300 240" preserveAspectRatio="none" aria-label="Estimated causal effect over time">
+                      <!-- Plotting height = 210px, y=0 at 210 and y=10 at 0 -->
+                      <!-- +2 => 168, +3 => 147, +7 => 63 -->
+                      
+                      
+                      
+                      
+                    </svg>
+
+                    <div class="time-dot time-dot-may"></div>
+                    <div class="time-dot time-dot-june"></div>
+                    <div class="time-dot time-dot-july"></div>
+
+                    <div class="time-value-labels">
+                      <span style="left:15%; top:126px;">+2</span>
+                      <span style="left:50%; top:105px;">+3</span>
+                      <span style="left:85%; top:21px;">+7</span>
+                    </div>
+
+                    <div class="time-x-axis">
+                      <span style="left:15%;">May</span>
+                      <span style="left:50%;">June</span>
+                      <span style="left:85%;">July</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="variation-note" id="time-variation-note">
+                  Social Connection appears to have an increasingly stronger effect on binge drinking over time, with the largest estimated effect in July.
+                </div>
+              </div>
+
+              <div class="group-comparison-block">
+                <div class="subsection-title">Compared with reference cohorts</div>
+<div class="reference-cohort-monitoring">Monitoring period: May 1 – Jul 31, 2026 (92 days)</div>
+
+                <div class="patient-distribution-grid" aria-label="Distributions of estimated causal effects across comparison patient groups">
+                  <div class="patient-distribution-card" data-comparison-group="all">
+                    <div class="reference-cohort-label"><strong>All patients</strong><span>All patients you manage (N=100)</span></div>
+                    <div class="histogram-shell">
+                      <div class="histogram-y-label">Frequency</div>
+                      <div class="histogram-plot">
+                        <div class="histogram-mean-line" style="left:60.6%"></div>
+                        <div class="histogram-mean-label" style="left:60.6%">Mean +2.1 pp</div>
+                        <div class="histogram-bars">
+                          <i style="height:0%"></i><i style="height:0%"></i><i style="height:0%"></i><i style="height:3%"></i><i style="height:7%"></i><i style="height:13%"></i><i style="height:21%"></i><i style="height:34%"></i><i style="height:48%"></i><i style="height:42%"></i><i style="height:55%"></i><i style="height:73%"></i><i style="height:88%"></i><i style="height:70%"></i><i style="height:76%"></i><i style="height:61%"></i><i class="jane-bin" style="height:43%"></i><i style="height:20%"></i><i style="height:7%"></i><i style="height:0%"></i>
+                        </div>
+                      </div>
+                      <div class="histogram-axis"><span>−10</span><span>−5</span><span>0</span><span>+5</span><span>+10</span></div>
+                    </div>
+                  </div>
+
+                  <div class="patient-distribution-card" data-comparison-group="frequency">
+                    <div class="reference-cohort-label"><strong>Similar binge-drinking frequency</strong><span>Fewer than 5 binge-drinking events per month (N=28)</span></div>
+                    <div class="histogram-shell">
+                      <div class="histogram-y-label">Frequency</div>
+                      <div class="histogram-plot">
+                        <div class="histogram-mean-line" style="left:73%"></div>
+                        <div class="histogram-mean-label" style="left:73%">Mean +4.6 pp</div>
+                        <div class="histogram-bars">
+                          <i style="height:0%"></i><i style="height:0%"></i><i style="height:0%"></i><i style="height:0%"></i><i style="height:1%"></i><i style="height:2%"></i><i style="height:4%"></i><i style="height:6%"></i><i style="height:10%"></i><i style="height:14%"></i><i style="height:20%"></i><i style="height:28%"></i><i style="height:40%"></i><i style="height:58%"></i><i style="height:80%"></i><i style="height:96%"></i><i class="jane-bin" style="height:86%"></i><i style="height:54%"></i><i style="height:22%"></i><i style="height:6%"></i>
+                        </div>
+                      </div>
+                      <div class="histogram-axis"><span>−10</span><span>−5</span><span>0</span><span>+5</span><span>+10</span></div>
+                    </div>
+                  </div>
+
+                  <div class="patient-distribution-card" data-comparison-group="age">
+                    <div class="reference-cohort-label"><strong>Same age group</strong><span>Age 30–39 (N=42)</span></div>
+                    <div class="histogram-shell">
+                      <div class="histogram-y-label">Frequency</div>
+                      <div class="histogram-plot">
+                        <div class="histogram-mean-line" style="left:58.2%"></div>
+                        <div class="histogram-mean-label" style="left:58.2%">Mean +1.6 pp</div>
+                        <div class="histogram-bars">
+                          <i style="height:0%"></i><i style="height:0%"></i><i style="height:2%"></i><i style="height:5%"></i><i style="height:10%"></i><i style="height:18%"></i><i style="height:29%"></i><i style="height:41%"></i><i style="height:37%"></i><i style="height:46%"></i><i style="height:68%"></i><i style="height:91%"></i><i style="height:84%"></i><i style="height:63%"></i><i style="height:51%"></i><i style="height:57%"></i><i class="jane-bin" style="height:39%"></i><i style="height:16%"></i><i style="height:4%"></i><i style="height:0%"></i>
+                        </div>
+                      </div>
+                      <div class="histogram-axis"><span>−10</span><span>−5</span><span>0</span><span>+5</span><span>+10</span></div>
+                    </div>
+                  </div>
+
+                  <div class="patient-distribution-card" data-comparison-group="women">
+                    <div class="reference-cohort-label"><strong>Same gender</strong><span>Women (N=47)</span></div>
+                    <div class="histogram-shell">
+                      <div class="histogram-y-label">Frequency</div>
+                      <div class="histogram-plot">
+                        <div class="histogram-mean-line" style="left:68.5%"></div>
+                        <div class="histogram-mean-label" style="left:68.5%">Mean +3.7 pp</div>
+                        <div class="histogram-bars">
+                          <i style="height:0%"></i><i style="height:0%"></i><i style="height:0%"></i><i style="height:0%"></i><i style="height:1%"></i><i style="height:3%"></i><i style="height:7%"></i><i style="height:12%"></i><i style="height:20%"></i><i style="height:28%"></i><i style="height:38%"></i><i style="height:50%"></i><i style="height:64%"></i><i style="height:78%"></i><i style="height:90%"></i><i style="height:88%"></i><i class="jane-bin" style="height:72%"></i><i style="height:48%"></i><i style="height:20%"></i><i style="height:5%"></i>
+                        </div>
+                      </div>
+                      <div class="histogram-axis"><span>−10</span><span>−5</span><span>0</span><span>+5</span><span>+10</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="histogram-x-title">Estimated causal effect (pp)</div>
+                <div class="jane-bin-note" id="jane-distribution-note"><span class="jane-bin-swatch"></span>The highlighted bin contains Jane's estimated effect (+6 pp).</div>
+
+                <div class="variation-note" id="group-comparison-note">
+                  Estimated Social Connection effects are predominantly positive across these reference cohorts. Jane's estimated effect (+6 pp) is above the mean for each reference cohort shown here. The similar binge-drinking frequency cohort has the most positively shifted distribution (mean +4.6 pp), while the same-gender cohort has a mean of +3.7 pp.
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+              </div>
+
+      <button class="context-drawer-tab" id="open-context-drawer" aria-expanded="false">Add Context</button>
+
+      <aside class="context-drawer" id="context-drawer" aria-hidden="true">
+        <div class="context-drawer-head">
+          <div>
+            <div class="context-drawer-title">Add Context</div>
+            <div class="context-drawer-subtitle" id="context-drawer-subtitle">Social Connection → Binge Drinking</div>
+          </div>
+          <button class="context-drawer-close" id="close-context-drawer" aria-label="Close context panel">×</button>
+        </div>
+
+        <div class="context-drawer-scroll">
+          <section class="drawer-section">
+            <div class="drawer-section-title">Current insight</div>
+            <p id="context-current-insight"></p>
+            <p class="drawer-muted" id="context-current-pattern"></p>
+          </section>
+
+          <section class="drawer-section">
+            <div class="drawer-section-title">Discuss with participant</div>
+            <div class="drawer-helper" id="context-discussion-helper"></div>
+            <div id="context-suggested-questions"></div>
+
+            <button class="drawer-secondary-btn" id="add-own-question">+ Add your own question</button>
+
+            <div class="discussion-guide" id="discussion-guide">
+              <div class="drawer-subhead">Discussion guide</div>
+              <div class="empty-guide" id="empty-guide">Add questions you want to discuss with Jane.</div>
+            </div>
+
+            <label class="drawer-subhead drawer-note-label" for="discussion-notes">What did you learn?</label>
+            <textarea id="discussion-notes" class="drawer-textarea" placeholder="Record what you learned from Jane about the situation, people involved, or what was happening before drinking..."></textarea>
+
+            <div class="drawer-subhead">What does this help explain?</div>
+            <div class="context-component-tags" id="context-component-tags"></div>
+            <button class="drawer-primary-btn" id="save-context-note">Save context</button>
+
+            <div class="saved-context-list" id="saved-context-list">
+              <div class="drawer-subhead">Saved context</div>
+              <div class="empty-guide" id="saved-context-empty">No context has been saved yet.</div>
+            </div>
+          </section>
+
+          <section class="drawer-section">
+            <div class="drawer-section-title">Refine EMA</div>
+            <div class="drawer-subhead" id="context-current-ema-title"></div>
+            <div id="context-current-ema-list"></div>
+
+            <div class="drawer-subhead suggested-ema-head">Suggested additions</div>
+            <div id="context-suggested-ema"></div>
+
+            <button class="drawer-secondary-btn">+ Create a question</button>
+          </section>
+        </div>
+      </aside>
+    </section>
+
+  <section id="view-model" class="page-view causal-model-view" style="display:none;">
+    <div class="causal-model-layout">
+
+
+      <div class="causal-model-main causal-model-split">
+        <div class="causal-model-half causal-model-graph-half">
+          <section class="panel causal-graph-panel">
+          <div class="model-panel-head">
+            <h2>Causal Structure</h2>
+            <div class="model-panel-actions">
+              <div class="info-wrap">
+              <button class="info-btn" aria-label="Causal structure help">i</button>
+              <div class="tooltip">Review the causal relationships among constructs. Select a construct to inspect its definition and causal analysis result.</div>
+              </div>
+              <button class="secondary-action model-edit-toggle" id="model-edit-toggle">Manage constructs</button>
+            </div>
+          </div>
+
+          <div class="causal-graph-legend" aria-label="Causal graph legend">
+            <div class="causal-graph-legend-item"><span class="legend-arrow pathway-blue" id="causal-pathway-legend-arrow"></span><span>Causal pathway</span></div>
+            <div class="causal-graph-legend-item"><span class="legend-node legend-node-treatment"></span><span>Treatment</span></div>
+            <div class="causal-graph-legend-item"><span class="legend-node legend-node-confounder"></span><span>Confounder</span></div>
+          </div>
+
+          <div class="causal-graph-canvas probe2-style-graph" id="model-dynamic-graph">
+          </div>
+
+          <div class="graph-selection-hint">Select a construct to review its details.</div>
+
+          
+<div class="analysis-period-box">
+  <div class="analysis-period-label">Analysis period</div>
+  <div class="analysis-period-date">May 1 – Jul 31, 2026</div>
+  <div class="analysis-period-note">Pre-intervention monitoring period</div>
+</div>
+<div class="causal-analysis-window" aria-label="Causal analysis window">
+            <div class="analysis-window-title">Analysis window</div>
+            <div class="analysis-window-copy">Passive sensing and EMA observed 15–3 hours before drinking started were used in the causal analysis.</div>
+
+            <div class="analysis-window-timeline">
+              <div class="analysis-window-track">
+                <div class="analysis-window-observed">
+                  <span>Passive sensing + EMA</span>
+                </div>
+                <div class="analysis-window-event-dot"></div>
+              </div>
+              <div class="analysis-window-labels">
+                <span class="window-label window-start">−15 h</span>
+                <span class="window-label window-end">−3 h</span>
+                <span class="window-label window-event"><span>Drinking</span><span>start</span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="structure-stability-inline">
+            <div class="structure-stability-inline-head">Structure stability</div>
+            <p>We repeatedly sampled from data from <strong>100 patients</strong> to test the stability of this causal structure. For each patient subsample, only directed relationships that appeared in at least <strong>50 of 100 bootstrap runs</strong> were retained. Across <strong>30 patient subsamples</strong>, the final structure was reproduced <strong>25 times (83%)</strong>.</p>
+          </div>
+          </section>
+        </div>
+
+        <div class="causal-model-half causal-model-detail-half">
+          <section class="panel causal-effect-overview-panel" aria-label="Causal effect overview">
+            <div class="causal-effect-overview-head">
+              <div>
+                <h2>Causal Effect Overview</h2>
+                <p>Estimated change in binge-drinking probability for a 1-point increase in each construct.</p>
+              </div>
+              <div class="info-wrap summary-info-wrap">
+                <button class="info-btn summary-info-btn" aria-label="Causal effect overview help">i</button>
+                <div class="tooltip">Larger absolute effects indicate a larger estimated change in binge-drinking probability for the same 1-point construct change. Effect magnitude alone does not determine which construct should be targeted.</div>
+              </div>
+            </div>
+            <div class="effect-overview-axis" aria-hidden="true">
+              <span></span>
+              <div class="effect-overview-axis-scale">
+                <span class="axis-neg">−6 pp</span>
+                <span class="axis-zero">0</span>
+                <span class="axis-pos">+8 pp</span>
+              </div>
+              <span></span>
+            </div>
+            <div class="effect-overview-list" id="model-effect-overview-list"></div>
+          </section>
+
+          <section class="panel model-inspector">
+          <div id="node-inspector" class="model-inspector-view">
+            <div class="model-inspector-head construct-identity-head">
+              <div>
+                <div class="model-inspector-kicker">Construct</div>
+                <div class="construct-title-row">
+                  <h2 id="inspector-node-title">Social Connection</h2>
+                  <span class="model-finding-status increase" id="model-finding-status">Increases binge drinking</span>
+                </div>
+              </div>
+              <button class="secondary-action" id="customize-construct-btn">Refine construct</button>
+            </div>
+
+            <div class="construct-section">
+              <div class="model-detail-label">Definition</div>
+              <p id="inspector-node-definition">The degree of perceived and observed social engagement with others.</p>
+              <div class="construct-source-line">
+                <span>Data sources</span>
+                <strong id="inspector-node-sources">Passive sensing + EMA</strong>
+              </div>
+            </div>
+
+            <div class="construct-section causal-effect-section" id="model-causal-effect-section">
+              <div class="model-detail-label">Estimated causal effect</div>
+              <div class="causal-effect-grid">
+                <div class="causal-effect-item">
+                  <span>Estimated effect</span>
+                  <strong id="model-effect-estimate">+6 percentage points per 1-point increase</strong>
+                </div>
+                <div class="causal-effect-item">
+                  <span>95% CI</span>
+                  <strong id="model-effect-ci">+2.7 to +8.8<br>percentage points</strong>
+                </div>
+                <div class="causal-effect-item">
+                  <span>Adjusted for</span>
+                  <strong id="model-adjusted-for">Negative Affect,<br>Drinking Motivation</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="construct-section">
+              <div class="model-detail-label">Components</div>
+              <div class="model-component-groups compact-components" id="inspector-components"></div>
+
+              <div class="component-explanation" id="component-explanation" style="display:none;">
+                <div class="component-explanation-head">
+                  <div>
+                    <div class="component-explanation-name" id="component-explanation-name"></div>
+                    <div class="component-explanation-source" id="component-explanation-source"></div>
+                  </div>
+                  <button class="component-explanation-close" id="component-explanation-close" aria-label="Close component explanation">×</button>
+                </div>
+
+                <div class="component-explanation-grid">
+                  <div>
+                    <span>What it captures</span>
+                    <p id="component-explanation-what"></p>
+                  </div>
+                  <div>
+                    <span>Why included</span>
+                    <p id="component-explanation-why"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+
+          </section>
+        </div>
+      </div>
+
+
+    </div>
+
+    <aside class="model-changes-drawer manage-constructs-drawer" id="model-changes-drawer" aria-hidden="true">
+      <div class="model-changes-head">
+        <div>
+          <h2>Manage constructs</h2>
+        </div>
+        <button class="model-changes-close" id="model-changes-close" aria-label="Close manage constructs">×</button>
+      </div>
+
+      <div class="manage-constructs-section">
+        <div class="manage-section-title">Included in model</div>
+        <div class="manage-construct-list" id="included-construct-list">
+          <div class="manage-construct-row" data-construct="social">
+            <div><strong>Social Connection</strong><span>Construct</span></div>
+            <button class="manage-row-action exclude-construct-btn" data-construct="social">Exclude</button>
+          </div>
+          <div class="manage-construct-row" data-construct="negative">
+            <div><strong>Negative Affect</strong><span>Construct</span></div>
+            <button class="manage-row-action exclude-construct-btn" data-construct="negative">Exclude</button>
+          </div>
+          <div class="manage-construct-row" data-construct="motivation">
+            <div><strong>Drinking Motivation</strong><span>Construct</span></div>
+            <button class="manage-row-action exclude-construct-btn" data-construct="motivation">Exclude</button>
+          </div>
+          <div class="manage-construct-row" data-construct="opportunity">
+            <div><strong>Drinking Opportunity</strong><span>Construct</span></div>
+            <button class="manage-row-action exclude-construct-btn" data-construct="opportunity">Exclude</button>
+          </div>
+          <div class="manage-construct-row" data-construct="activity" id="included-activity-row" style="display:none;">
+            <div><strong>Physical Activity</strong><span>Construct</span></div>
+            <button class="manage-row-action activity-exclude-btn">Exclude</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="manage-constructs-section">
+        <div class="manage-section-title">Outcome</div>
+        <div class="manage-construct-row fixed-outcome-row">
+          <div><strong>Binge Drinking</strong><span>Required outcome</span></div>
+          <span class="required-badge">Required</span>
+        </div>
+      </div>
+
+      <div class="manage-constructs-section">
+        <div class="manage-section-title">Available constructs</div>
+        <div class="manage-construct-list" id="available-construct-list">
+          <div class="manage-construct-row" data-available="activity">
+            <div><strong>Physical Activity</strong><span>Passive sensing</span></div>
+            <button class="manage-row-action add-construct-btn" data-label="Physical Activity">+ Add</button>
+          </div>
+          <div class="manage-construct-row" data-available="regulation">
+            <div><strong>Daily Regulation</strong><span>Passive sensing + EMA</span></div>
+            <button class="manage-row-action add-construct-btn" data-label="Daily Regulation">+ Add</button>
+          </div>
+          <div class="manage-construct-row" data-available="mobility">
+            <div><strong>Mobility &amp; Routine</strong><span>Passive sensing</span></div>
+            <button class="manage-row-action add-construct-btn" data-label="Mobility & Routine">+ Add</button>
+          </div>
+        </div>
+        <button class="secondary-action create-construct-btn" id="create-construct-btn">+ Create new construct</button>
+      </div>
+
+      <div class="create-construct-panel" id="create-construct-panel" style="display:none;">
+        <label>Construct name</label>
+        <input id="new-construct-name" type="text" placeholder="e.g., Social Drinking Context">
+        <label>Definition</label>
+        <textarea id="new-construct-definition" placeholder="Describe what this construct represents."></textarea>
+        <div class="create-construct-actions">
+          <button class="secondary-action" id="cancel-create-construct">Cancel</button>
+          <button class="primary-action" id="save-new-construct">Add construct</button>
+        </div>
+      </div>
+
+      <div class="manage-pending-summary" id="manage-pending-summary">No pending changes.</div>
+      <button class="primary-action rerun-model-btn" id="apply-construct-changes">Apply changes &amp; re-run analysis</button>
+    </aside>
+
+            <aside class="refine-construct-drawer" id="construct-customize-panel" aria-hidden="true">
+              <div class="customize-head">
+                <div>
+                  <div class="model-inspector-kicker">Refine construct</div>
+                  <h3 id="customize-construct-title">Social Connection</h3>
+                </div>
+                <button class="component-detail-close" id="close-customize-construct" aria-label="Close customization">×</button>
+              </div>
+
+              <label class="customize-label" for="customize-definition">Definition</label>
+              <textarea id="customize-definition" class="customize-definition-input">The degree of perceived and observed social engagement with others.</textarea>
+
+              <div class="customize-label">Included components</div>
+              <div id="customize-component-list" class="customize-component-list"></div>
+
+              <button class="secondary-action add-component-btn" id="add-component-btn">+ Add component</button>
+
+              <div class="available-components-panel" id="available-components-panel" style="display:none;">
+                <div class="available-components-head">Available components</div>
+                <button class="available-component" data-name="Bluetooth proximity" data-source="Passive sensing">Bluetooth proximity <span>Passive sensing</span></button>
+                <button class="available-component" data-name="Nearby device count" data-source="Passive sensing">Nearby device count <span>Passive sensing</span></button>
+                <button class="available-component" data-name="Social setting" data-source="EMA">Social setting <span>EMA</span></button>
+              </div>
+
+              <div class="customize-actions">
+                <button class="secondary-action" id="cancel-customize-construct">Cancel</button>
+                <button class="primary-action" id="save-customize-construct">Save changes</button>
+              </div>
+
+              <div class="customize-note">
+                Changes to construct definitions or component mappings require the causal analysis to be re-estimated.
+              </div>
+            </aside>
+  </section>
+
+  <section id="view-interventions" class="page-view interventions-view" style="display:none;">
+    <div class="intervention-topline intervention-topline-tabs-only">
+      <div class="intervention-phase-tabs" role="tablist" aria-label="Intervention phases">
+        <button class="intervention-phase-tab active" data-phase="design">Plan</button>
+        <button class="intervention-phase-tab" data-phase="outcomes">Review</button>
+      </div>
+    </div>
+
+    <div id="intervention-design-phase" class="intervention-phase">
+      <div class="intervention-design-grid simplified-intervention-grid">
+        <div class="intervention-design-main">
+
+          <section class="panel intervention-step-card">
+            <div class="intervention-step-head intervention-step-head-with-info">
+              <div class="intervention-step-number">1</div>
+              <div class="intervention-step-title-only">
+                <h2>Target construct</h2>
+              </div>
+              <div class="info-wrap intervention-step-info">
+                <button class="info-btn" aria-label="Target construct help">i</button>
+                <div class="tooltip">Select one causal construct to use as the starting point for this intervention plan.</div>
+              </div>
+            </div>
+
+            <div class="target-construct-grid">
+              <button class="target-construct-card risk active" data-factor="Social Connection" data-construct-key="social">
+                <div class="target-name">Social Connection</div>
+                <div class="target-effect" id="target-effect-social">+6 pp</div>
+              </button>
+
+              <button class="target-construct-card risk" data-factor="Negative Affect" data-construct-key="negative">
+                <div class="target-name">Negative Affect</div>
+                <div class="target-effect" id="target-effect-negative">+4 pp</div>
+              </button>
+
+              <button class="target-construct-card protective" id="activity-target-card" data-factor="Physical Activity" data-construct-key="activity" style="display:none;">
+                <div class="target-name">Physical Activity</div>
+                <div class="target-effect" id="target-effect-activity">−3 pp</div>
+              </button>
+            </div>
+          </section>
+
+          <section class="panel intervention-step-card">
+            <div class="intervention-step-head intervention-step-head-with-info">
+              <div class="intervention-step-number">2</div>
+              <div class="intervention-step-title-only">
+                <h2>Identify what to focus on</h2>
+              </div>
+              <div class="info-wrap intervention-step-info">
+                <button class="info-btn" aria-label="Focus selection help">i</button>
+                <div class="tooltip">Review the observed components and patient-provided context, then identify the specific situation, behavior, or context that should receive attention in the intervention.</div>
+              </div>
+            </div>
+
+            <div class="focus-review-layout context-linked-focus-layout">
+              <div>
+                <div class="component-list-title">Components</div>
+                <div class="component-list-instruction">Select a component to review its observed pattern and participant-provided context.</div>
+                <div class="component-list" role="tablist" aria-label="Observed components">
+                <button class="component-review-item active" data-component="messaging"><span>Messaging activity</span></button>
+                <button class="component-review-item" data-component="socialmedia"><span>Social media usage duration</span></button>
+                <button class="component-review-item" data-component="call"><span>Call duration</span></button>
+                <button class="component-review-item" data-component="perceived"><span>Perceived social connection</span></button>
+                <button class="component-review-item" data-component="inperson"><span>In-person social connection</span></button>
+                </div>
+              </div>
+
+              <div class="patient-context-panel">
+                <div class="patient-context-label">Context linked to this component</div>
+                <div id="linked-context-panel" class="linked-context-panel"></div>
+              </div>
+            </div>
+
+            <div class="focus-input-block">
+              <label class="intervention-field-label" for="focus-input">What situation or behavior would you like to focus on?</label>
+              <textarea id="focus-input" class="intervention-message-box focus-textarea" placeholder="Describe the specific situation, behavior, or context you want to address.">Evening calls or messages with John that lead to spontaneous drinking plans.</textarea>
+              <div class="focus-example">
+                <div class="focus-example-label">Examples based on saved context</div>
+                <ul>
+                  <li>Evening calls or messages with John that lead to spontaneous drinking plans.</li>
+                  <li>Social plans with close friends that are frequently followed by heavier drinking.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel intervention-step-card" id="intervention-strategy-step">
+            <div class="intervention-step-head intervention-step-head-with-info">
+              <div class="intervention-step-number">3</div>
+              <div class="intervention-step-title-only">
+                <h2>Choose an intervention strategy</h2>
+              </div>
+              <div class="info-wrap intervention-step-info">
+                <button class="info-btn" aria-label="Intervention strategy help">i</button>
+                <div class="tooltip">Choose an intervention approach that could address the patient-specific focus identified above. The strategy options and sources shown in this prototype are illustrative examples.</div>
+              </div>
+            </div>
+
+                        <div id="strategy-grid" class="strategy-grid" role="radiogroup" aria-label="Intervention strategies"></div>
+          </section>
+
+          <section class="panel intervention-step-card">
+            <div class="intervention-step-head intervention-step-head-with-info">
+              <div class="intervention-step-number">4</div>
+              <div class="intervention-step-title-only">
+                <h2>Tailor a concrete plan</h2>
+              </div>
+              <div class="info-wrap intervention-step-info">
+                <button class="info-btn" aria-label="Coping plan help">i</button>
+                <div class="tooltip">Tailor the selected intervention strategy to Jane by specifying the situation, action, boundary or target, and timeframe.</div>
+              </div>
+            </div>
+
+            <div class="selected-strategy-strip">
+              <div>
+                <div class="selected-strategy-label">Selected strategy</div>
+                <div class="selected-strategy-name" id="selected-strategy-name">Drinking-refusal skills</div>
+              </div>
+              <div class="selected-strategy-source" id="selected-strategy-source">Source: Evidence-based intervention literature (illustrative)</div>
+            </div>
+
+            <div class="coping-plan-name-block">
+              <label class="intervention-field-label" for="coping-plan-name">Plan name</label>
+              <input id="coping-plan-name" class="intervention-text-input" value="Pause before agreeing to evening drinking plans and set a drink limit first">
+            </div>
+
+            <div class="behavior-goal-grid">
+              <div>
+                <label class="intervention-field-label" for="goal-situation">Situation</label>
+                <input id="goal-situation" class="intervention-text-input" value="When John calls or messages about drinking plans after 5 PM">
+              </div>
+
+              <div>
+                <label class="intervention-field-label" for="goal-action">Action</label>
+                <input id="goal-action" class="intervention-text-input" value="Pause before agreeing and decide a drink limit first">
+              </div>
+
+              <div>
+                <label class="intervention-field-label" for="goal-boundary">Boundary / target</label>
+                <input id="goal-boundary" class="intervention-text-input" value="Set a limit of no more than 3 drinks">
+              </div>
+
+              <div>
+                <label class="intervention-field-label" for="goal-timeframe">Timeframe</label>
+                <input id="goal-timeframe" class="intervention-text-input" value="For the next 8 weeks">
+              </div>
+            </div>
+
+            <div class="goal-preview-box">
+              <div class="intervention-field-label">Coping plan</div>
+              <p id="goal-preview">When John calls or messages about drinking plans after 5 PM, Jane will pause before agreeing and decide a drink limit first, with a limit of no more than 3 drinks, for the next 8 weeks.</p>
+            </div>
+          </section>
+
+          <section class="panel intervention-step-card optional-support-card">
+            <div class="optional-support-head">
+              <div>
+                <div class="optional-label">Optional</div>
+                <h2>Add timely support</h2>
+              </div>
+              <div class="optional-support-actions">
+                <div class="info-wrap intervention-step-info">
+                  <button class="info-btn" aria-label="Timely support help">i</button>
+                  <div class="tooltip">Optionally provide a reminder at a useful moment to help Jane remember and follow the behavioral goal she has already set.</div>
+                </div>
+                <label class="support-toggle">
+                <input type="checkbox" id="support-enabled" checked>
+                <span>Enable support</span>
+                </label>
+              </div>
+            </div>
+
+            <div id="support-settings">
+              <div class="support-choice-grid">
+                <label class="support-choice selected">
+                  <input type="radio" name="support-trigger" value="Before typical drinking time" checked>
+                  <span><strong>Before typical drinking time</strong></span>
+                </label>
+
+                <label class="support-choice">
+                  <input type="radio" name="support-trigger" value="When target construct is high">
+                  <span><strong>When target construct is high</strong></span>
+                </label>
+
+                <label class="support-choice">
+                  <input type="radio" name="support-trigger" value="Custom scheduled time">
+                  <span><strong>Custom scheduled time</strong></span>
+                </label>
+              </div>
+
+              <div id="construct-trigger-settings" class="conditional-support-settings" style="display:none;">
+                <label class="intervention-field-label">Feature used to identify a high target construct</label>
+                <div class="feature-trigger-options">
+                  <label class="feature-trigger-option">
+                    <input type="checkbox" value="Messaging activity">
+                    <span>Messaging activity</span>
+                  </label>
+                  <label class="feature-trigger-option">
+                    <input type="checkbox" value="Social media usage duration">
+                    <span>Social media usage duration</span>
+                  </label>
+                  <label class="feature-trigger-option">
+                    <input type="checkbox" value="Call duration">
+                    <span>Call duration</span>
+                  </label>
+                  <label class="feature-trigger-option">
+                    <input type="checkbox" value="Perceived social connection">
+                    <span>Perceived social connection</span>
+                  </label>
+                  <label class="feature-trigger-option">
+                    <input type="checkbox" value="In-person social connection">
+                    <span>In-person social connection</span>
+                  </label>
+                </div>
+              </div>
+
+              <div id="custom-time-settings" class="conditional-support-settings" style="display:none;">
+                <label class="intervention-field-label" for="custom-support-time">Scheduled time</label>
+                <select id="custom-support-time" class="intervention-select custom-time-input">
+                  <option value="4:00 PM">4:00 PM</option>
+                  <option value="5:00 PM">5:00 PM</option>
+                  <option value="6:00 PM" selected>6:00 PM</option>
+                  <option value="7:00 PM">7:00 PM</option>
+                  <option value="8:00 PM">8:00 PM</option>
+                  <option value="9:00 PM">9:00 PM</option>
+                  <option value="10:00 PM">10:00 PM</option>
+                </select>
+              </div>
+
+
+              <div class="message-library" id="strategy-message-library">
+                <div class="message-library-head">
+                  <div class="message-library-title">Suggested messages for this strategy</div>
+                  <div class="message-library-source" id="message-library-source">Source: Evidence-based intervention literature (illustrative)</div>
+                </div>
+                <div class="message-library-options" id="message-library-options"></div>
+              </div>
+
+              <div class="support-settings-grid">
+                <div>
+                  <label class="intervention-field-label" for="support-delivery">Delivery</label>
+                  <select id="support-delivery" class="intervention-select full">
+                    <option>Smartphone notification</option>
+                    <option>Text message</option>
+                    <option>In-app message</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="intervention-field-label" for="support-message">Reminder message</label>
+                  <textarea id="support-message" class="intervention-message-box support-message-box">If you're making drinking plans tonight, take a moment to decide your drink limit before responding.</textarea>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <aside class="panel intervention-plan-card">
+          <div class="plan-head">
+            <div>
+              <div class="intervention-kicker">Plan summary</div>
+              <h2>Coping Plan Summary</h2>
+            </div>
+            <span class="plan-status">Draft</span>
+          </div>
+
+          <div class="plan-summary-list">
+            <div class="plan-summary-row"><span>Plan name</span><strong id="summary-plan-name">Pause before agreeing to evening drinking plans and set a drink limit first</strong></div>
+            <div class="plan-summary-row"><span>Target construct</span><strong id="summary-factor">Social Connection</strong></div>
+            <div class="plan-summary-row"><span>Focus</span><strong id="summary-focus">Evening calls or messages with John that lead to spontaneous drinking plans.</strong></div>
+            <div class="plan-summary-row"><span>Intervention strategy</span><strong id="summary-strategy">Drinking-refusal skills</strong></div>
+            <div class="plan-summary-row"><span>Coping plan</span><strong id="summary-goal">When John calls or messages about drinking plans after 5 PM, Jane will pause before agreeing and decide a drink limit first, with a limit of no more than 3 drinks, for the next 2 weeks.</strong></div>
+            <div class="plan-summary-row"><span>Timely support</span><strong id="summary-support">Before typical drinking time</strong></div>
+            <div class="plan-summary-row"><span>Delivery</span><strong id="summary-delivery">Smartphone notification</strong></div>
+          </div>
+
+          <div class="plan-message-preview">
+            <div class="intervention-field-label">Reminder preview</div>
+            <p id="summary-message">If you're making drinking plans tonight, take a moment to decide your drink limit before responding.</p>
+          </div>
+
+          <button class="primary-action intervention-save-plan" id="save-intervention-plan">Save plan</button>
+        </aside>
+      </div>
+    </div>
+
+    <div id="intervention-outcomes-phase" class="intervention-phase" style="display:none;">
+      <section class="panel intervention-outcome-summary revised-current-plan">
+        <div class="current-plan-copy">
+          <div class="intervention-kicker">Current coping plan</div>
+          <h2 id="review-plan-name">Pause before agreeing to evening drinking plans and set a drink limit first</h2>
+          <div class="current-plan-details review-intervention-details">
+            <div><span>Intervention strategy</span><strong id="review-strategy">Drinking-refusal skills</strong></div>
+            <div><span>Situation</span><strong id="review-situation">When John calls or messages about drinking plans after 5 PM</strong></div>
+            <div><span>Action</span><strong id="review-action">Pause before agreeing and decide how to decline additional drinks</strong></div>
+            <div><span>Boundary</span><strong id="review-boundary">Set a limit of no more than 3 drinks</strong></div>
+            <div><span>Timely support</span><strong id="review-support">Before typical drinking time · Smartphone notification</strong></div>
+            <div><span>Reminder message</span><strong id="review-message">Before going out tonight, decide how you will respond if someone offers you another drink.</strong></div>
+          </div>
+        </div>
+        <div class="current-plan-status">
+          <span class="active-intervention-status">Active</span>
+          <small>Since Aug 1</small>
+        </div>
+      </section>
+
+      <div class="outcome-grid">
+        <section class="panel outcome-history-card">
+          <div class="panel-head">
+            <div>
+              <h2 class="panel-title">Recent Coping Plan Use</h2>
+            </div>
+          </div>
+          <div class="outcome-table-wrap">
+            <table class="outcome-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Reminder</th>
+                  <th>Opened</th>
+                  <th>Plan followed</th>
+                  <th>Observed outcome</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Aug 4</td><td>Delivered</td><td>Yes</td><td>Yes</td><td>2 drinks</td></tr>
+                <tr><td>Aug 9</td><td>Delivered</td><td>Yes</td><td>Yes</td><td>3 drinks</td></tr>
+                <tr><td>Aug 15</td><td>Delivered</td><td>Yes</td><td>Yes</td><td>2 drinks</td></tr>
+                <tr><td>Aug 22</td><td>Delivered</td><td>Yes</td><td>Yes</td><td>3 drinks</td></tr>
+                <tr><td>Aug 28</td><td>Delivered</td><td>No</td><td>No</td><td>5 drinks · Binge</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel outcome-comparison-card">
+          <div class="panel-head">
+            <div>
+              <h2 class="panel-title">Observed Outcomes</h2>
+            </div>
+          </div>
+          <div class="outcome-comparison-body">
+            <div class="outcome-metric">
+              <div class="outcome-metric-label">Binge-drinking rate</div>
+              <div class="outcome-bars">
+                <div class="outcome-bar-row">
+                  <span>Aug 1–30</span>
+                  <div class="outcome-bar-track"><i style="width:20%"></i></div>
+                  <strong>20%</strong>
+                </div>
+                <div class="outcome-bar-row">
+                  <span>Before coping plan</span>
+                  <div class="outcome-bar-track"><i style="width:46%"></i></div>
+                  <strong>46%</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="outcome-metric">
+              <div class="outcome-metric-label">Average drinks per drinking event</div>
+              <div class="outcome-bars">
+                <div class="outcome-bar-row">
+                  <span>Aug 1–30</span>
+                  <div class="outcome-bar-track"><i style="width:43%"></i></div>
+                  <strong>3.0</strong>
+                </div>
+                <div class="outcome-bar-row">
+                  <span>Before coping plan</span>
+                  <div class="outcome-bar-track"><i style="width:73%"></i></div>
+                  <strong>5.1</strong>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+      </div>
+
+
+    </div>
+  </section>
+
+</main>
+
+
+<div class="modal-backdrop" id="window-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title">Causal analysis window</div>
+      <button class="close-btn" id="close-window">×</button>
+    </div>
+    <p class="modal-copy" id="modal-copy">For the Jul 24 event, the analysis uses observations from 3:45 AM to 3:45 PM, 3–15 hours before drinking started.</p>
+    <div class="window-track">
+      <div class="base-line"></div>
+      <div class="analysis-span"></div>
+      <div class="event-mark"></div>
+      <div class="track-label" id="window-start" style="left:14%">3:45 AM</div>
+      <div class="track-label" id="window-end" style="left:73%">3:45 PM</div>
+      <div class="track-label" id="window-event" style="left:91%">6:45 PM</div>
+    </div>
+  </div>
+</div>
+
+
+<div class="reanalysis-backdrop" id="reanalysis-modal" aria-hidden="true">
+  <div class="reanalysis-modal">
+    <div class="reanalysis-modal-head">
+      <div>
+        <div class="reanalysis-kicker">Analysis updated</div>
+        <h2>Revised causal analysis</h2>
+      </div>
+      <button class="reanalysis-close" id="close-reanalysis-modal" aria-label="Close analysis update">×</button>
+    </div>
+
+    <div class="reanalysis-change-card">
+      <span>Model change</span>
+      <strong id="reanalysis-model-change">Physical Activity was added to the causal analysis.</strong>
+    </div>
+
+    <div class="reanalysis-results">
+      <div class="reanalysis-result-row">
+        <span>Social Connection</span>
+        <div><del>+6 pp</del><strong>+5 pp</strong></div>
+      </div>
+      <div class="reanalysis-result-row">
+        <span>Negative Affect</span>
+        <div><del>+4 pp</del><strong>+3 pp</strong></div>
+      </div>
+      <div class="reanalysis-result-row new-result">
+        <span>Physical Activity</span>
+        <div><strong>−3 pp</strong><em>New finding</em></div>
+      </div>
+    </div>
+
+    <div class="reanalysis-propagation">
+      <strong>Updated across the prototype</strong>
+      <span>Causal Model, Causal Insights, and Interventions now use the revised analysis. Overview remains unchanged because it summarizes observed participant data.</span>
+    </div>
+
+    <button class="primary-action reanalysis-review-btn" id="review-updated-model">Review updated model</button>
+  </div>
+</div>
+
+<script src="js/app-state-calendar.js"></script>
+<script src="js/navigation-insights.js"></script>
+<script src="js/context-drawer.js"></script>
+<script src="js/interventions.js"></script>
+<script src="js/causal-model.js"></script>
+</body>
+</html>
